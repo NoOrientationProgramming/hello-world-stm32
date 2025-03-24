@@ -62,6 +62,7 @@ Core/Src/system_stm32c0xx.c
 
 CPP_SOURCES = \
 src/StmSupervising.cpp \
+ProcessingCore/targets/stm32/SingleWireTransfering.cpp \
 ProcessingCore/targets/stm32/SystemDebugging.cpp \
 ProcessingCore/Processing.cpp
 
