@@ -27,6 +27,7 @@
 #define STM_SUPERVISING_H
 
 #include "Processing.h"
+#include "SystemDebugging.h"
 
 class StmSupervising : public Processing
 {
@@ -54,11 +55,13 @@ private:
 	 */
 
 	/* member functions */
+	Success initialize();
 	Success process();
 	void processInfo(char *pBuf, char *pBufEnd);
 
 	/* member variables */
 	//uint32_t mStartMs;
+	SystemDebugging *pDbg;
 
 	/* static functions */
 
