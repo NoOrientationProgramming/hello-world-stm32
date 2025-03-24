@@ -1,0 +1,21 @@
+
+@startuml
+
+frame "StmSupervising()" as pSup {
+
+  frame "initialize()" as pInit
+
+  frame "SystemDebugging()" as pDbg {
+    frame "SingleWireTransfering()" as pSwt
+  }
+  
+  frame "Static interrupt functions" as pInt
+}
+
+pInit --> pDbg : Standarized member functions
+pSwt <--> pInt : Static functions
+
+footer **STM32** System debugging structure\n(C) DSP-Crowd Electronics GmbH
+
+@enduml
+
