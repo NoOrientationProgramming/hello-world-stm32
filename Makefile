@@ -61,9 +61,8 @@ Drivers/STM32C0xx_HAL_Driver/Src/stm32c0xx_hal_usart_ex.c \
 Core/Src/system_stm32c0xx.c
 
 CPP_SOURCES = \
-src/StmSupervising.cpp
-
-CORE_SOURCES = \
+src/StmSupervising.cpp \
+ProcessingCore/targets/stm32/SystemDebugging.cpp \
 ProcessingCore/Processing.cpp
 
 # ASM sources
@@ -133,6 +132,7 @@ C_INCLUDES =  \
 -IDrivers/CMSIS/Include
 
 C_INCLUDES += \
+ -IProcessingCore/targets/stm32 \
  -IProcessingCore \
  -Isrc
 
@@ -160,8 +160,6 @@ CFLAGS += \
 
 CFLAGS += \
 	-DCONFIG_PROC_NUM_MAX_CHILDREN_DEFAULT=1 \
-	-DCONFIG_PROC_SHOW_ADDRESS_IN_ID=0 \
-	-DCONFIG_PROC_HAVE_LIB_C_CUSTOM=0 \
 	-DCONFIG_PROC_INFO_BUFFER_SIZE=512
 
 #######################################
@@ -189,9 +187,7 @@ all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET
 OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
 vpath %.c $(sort $(dir $(C_SOURCES)))
 OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(CPP_SOURCES:.cpp=.o)))
-vpath %.cpp $(sort $(dir $(CPP_SOURCES)))
-OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(CORE_SOURCES:.cpp=.o)))
-vpath %.cpp $(sort $(dir $(CORE_SOURCES)))
+vpath %.cpp $(dir $(CPP_SOURCES))
 # list of ASM program objects
 OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
 vpath %.s $(sort $(dir $(ASM_SOURCES)))
