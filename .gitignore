@@ -1,0 +1,56 @@
+
+# Allgemeine temporäre Dateien
+*.bak
+*.swp
+*.swo
+*.tmp
+*.temp
+*.log
+
+# CubeMX generierte Dateien (nur wenn du CubeMX regenerieren kannst)
+*.ioc-backup*
+
+# Build-Ordner
+/Debug/
+/Release/
+/build/
+/out/
+/bin/
+/obj/
+
+# Kompilierte Binaries
+*.elf
+*.bin
+*.hex
+*.map
+*.lst
+*.o
+*.d
+
+# IDE-spezifische Dateien
+/.settings/
+/.vscode/
+/.idea/
+/*.launch
+*.project
+*.cproject
+
+# CubeIDE spezifisch
+/STM32CubeIDE/.metadata/
+/STM32CubeIDE/.cproject
+/STM32CubeIDE/.project
+
+# Makefile-Generierungen
+cmake-build-debug/
+CMakeLists.txt.user
+
+# ST-Link Debugging Dateien
+*.dep
+*.d
+*.lst
+*.srec
+
+# Sonstige nicht relevante Dateien
+*.DS_Store
+Thumbs.db
+
