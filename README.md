@@ -1,6 +1,8 @@
 
 # stm32-hello-world
 
+Tested on: `NUCLEO-C071RB`
+
 Clone repo with
 ```
 git clone https://github.com/NoOrientationProgramming/stm32-hello-world.git
