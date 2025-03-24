@@ -1,6 +1,8 @@
 
 # stm32-hello-world
 
+Status: `Pre alpha`
+
 Tested on: `NUCLEO-C071RB`
 
 Clone repo with
