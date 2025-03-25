@@ -64,7 +64,8 @@ CPP_SOURCES = \
 src/StmSupervising.cpp \
 ProcessingCore/targets/stm32/SingleWireTransfering.cpp \
 ProcessingCore/targets/stm32/SystemDebugging.cpp \
-ProcessingCore/Processing.cpp
+ProcessingCore/Processing.cpp \
+ProcessingCore/Log.cpp
 
 # ASM sources
 ASM_SOURCES =  \
@@ -161,7 +162,10 @@ CFLAGS += \
 
 CFLAGS += \
 	-DCONFIG_PROC_NUM_MAX_CHILDREN_DEFAULT=1 \
-	-DCONFIG_PROC_INFO_BUFFER_SIZE=512
+	-DCONFIG_PROC_INFO_BUFFER_SIZE=512 \
+	-DCONFIG_PROC_HAVE_LOG=1 \
+	-DCONFIG_PROC_LOG_HAVE_CHRONO=0 \
+	-DCONFIG_PROC_LOG_HAVE_STDOUT=0
 
 #######################################
 # LDFLAGS
