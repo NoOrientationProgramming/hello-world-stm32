@@ -55,13 +55,12 @@ private:
 	 */
 
 	/* member functions */
-	Success initialize();
 	Success process();
 	void processInfo(char *pBuf, char *pBufEnd);
 
 	/* member variables */
 	//uint32_t mStartMs;
-	SystemDebugging *pDbg;
+	SystemDebugging *mpDbg;
 
 	/* static functions */
 

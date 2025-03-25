@@ -44,10 +44,12 @@ using namespace std;
 
 extern UART_HandleTypeDef huart1;
 
+static uint8_t bufSwtRx;
+
 StmSupervising::StmSupervising()
 	: Processing("StmSupervising")
 	//, mStartMs(0)
-	, pDbg(NULL)
+	, mpDbg(NULL)
 {
 	mState = StStart;
 }
@@ -66,12 +68,12 @@ Success StmSupervising::process()
 	{
 	case StStart:
 
-		pDbg = SystemDebugging::create(this);
-		if (!pDbg)
+		mpDbg = SystemDebugging::create(this);
+		if (!mpDbg)
 			return procErrLog(-1, "could not create process");
 
-		//pDbg->procTreeDisplaySet(false);
-		start(pDbg);
+		//mpDbg->procTreeDisplaySet(false);
+		start(mpDbg);
 
 		HAL_GPIO_TogglePin(LED1_GPIO_PORT, LED1_PIN);
 
@@ -80,14 +82,14 @@ Success StmSupervising::process()
 		break;
 	case StDbgReadyWait:
 
-		if (!pDbg->ready())
+		if (!mpDbg->ready())
 			break;
 
 		HAL_GPIO_TogglePin(LED2_GPIO_PORT, LED2_PIN);
 
 		/* start interrupts */
 
-		HAL_UART_Receive_IT(&huart1, SingleWireTransfering::buffRx, 1);
+		HAL_UART_Receive_IT(&huart1, &bufSwtRx, sizeof(bufSwtRx));
 
 		mState = StMain;
 
@@ -112,24 +114,13 @@ void StmSupervising::processInfo(char *pBuf, char *pBufEnd)
 /* static functions */
 extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	SingleWireTransfering::buffRxIdxWritten = SingleWireTransfering::buffRxIdxIrq + 1;
-	SingleWireTransfering::buffRxIdxIrq ^= 1;
-	HAL_UART_Receive_IT(&huart1, &SingleWireTransfering::buffRx[SingleWireTransfering::buffRxIdxIrq], 1);
-
-	//HAL_GPIO_WritePin(LED_Blue_GPIO_Port, LED_Blue_Pin, dLedSet);
-	//HAL_GPIO_WritePin(LED_Blue_GPIO_Port, LED_Blue_Pin, dLedClear);
+	SingleWireTransfering::dataReceived(&bufSwtRx, sizeof(bufSwtRx));
+	HAL_UART_Receive_IT(&huart1, &bufSwtRx, sizeof(bufSwtRx));
 }
 
 extern "C" void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
 	(void)huart;
-
-	SingleWireTransfering::buffTxPending = 0;
-
-	//HAL_GPIO_WritePin(LED_Blue_GPIO_Port, LED_Blue_Pin, dLedSet);
-	//HAL_GPIO_WritePin(LED_Blue_GPIO_Port, LED_Blue_Pin, dLedClear);
-
-	//HAL_GPIO_WritePin(LED_Blue_GPIO_Port, LED_Blue_Pin, dLedSet);
-	//HAL_GPIO_WritePin(LED_Blue_GPIO_Port, LED_Blue_Pin, dLedClear);
+	SingleWireTransfering::bufTxPending = 0;
 }
 
