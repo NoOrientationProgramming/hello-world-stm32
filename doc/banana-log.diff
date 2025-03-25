@@ -1,0 +1,107 @@
+diff --git a/code/DMXSpot/lib/ProcessingCore/Log.cpp b/code/DMXSpot/lib/ProcessingCore/Log.cpp
+index f7ad87b..441152d 100644
+--- a/code/DMXSpot/lib/ProcessingCore/Log.cpp
++++ b/code/DMXSpot/lib/ProcessingCore/Log.cpp
+@@ -29,8 +29,11 @@
+ */
+ 
+ #include <cinttypes>
++#if 0
+ #include <iostream>
+ #include <chrono>
++using namespace chrono;
++#endif
+ #include <stdarg.h>
+ #if CONFIG_PROC_HAVE_DRIVERS
+ #include <mutex>
+@@ -39,8 +42,11 @@
+ #include <windows.h>
+ #endif
+ 
++#include "Processing.h"
++
++#include "util.h"
++
+ using namespace std;
+-using namespace chrono;
+ 
+ typedef void (*FuncEntryLogCreate)(
+ 			const int severity,
+@@ -53,11 +59,13 @@ typedef void (*FuncEntryLogCreate)(
+ 
+ static FuncEntryLogCreate pFctEntryLogCreate = NULL;
+ 
++#if 0
+ static system_clock::time_point tOld;
++#endif
+ 
+-const string red("\033[0;31m");
+-const string yellow("\033[0;33m");
+-const string reset("\033[37m");
++const char* red = "\033[0;31m";
++const char* yellow = "\033[0;33m";
++const char* reset = "\033[37m";
+ const int cDiffSecMax = 9;
+ const int cDiffMsMax = 999;
+ 
+@@ -96,7 +104,7 @@ int16_t logEntryCreate(const int severity, const char *filename, const char *fun
+ #if CONFIG_PROC_HAVE_DRIVERS
+ 	lock_guard<mutex> lock(mtxPrint); // Guard not defined!
+ #endif
+-	char *pBuf = new (nothrow) char[cLogEntryBufferSize];
++	char *pBuf = new dNoThrow char[cLogEntryBufferSize];
+ 	if (!pBuf)
+ 		return code;
+ 
+@@ -108,6 +116,7 @@ int16_t logEntryCreate(const int severity, const char *filename, const char *fun
+ 
+ 	va_list args;
+ 
++#if 0
+ 	// get time
+ 	system_clock::time_point t = system_clock::now();
+ 	milliseconds durDiffMs = duration_cast<milliseconds>(t - tOld);
+@@ -122,7 +131,6 @@ int16_t logEntryCreate(const int severity, const char *filename, const char *fun
+ 	::localtime_r(&tTt, &tTm);
+ #endif
+ 	strftime(timeBuf, sizeof(timeBuf), "%Y-%m-%d", &tTm);
+-
+ 	// build time
+ 	system_clock::duration dur = t.time_since_epoch();
+ 
+@@ -164,6 +172,9 @@ int16_t logEntryCreate(const int severity, const char *filename, const char *fun
+ 					int(durSecs.count()), int(durMillis.count()),
+ 					diffMaxed ? '>' : '+', tDiffSec, tDiffMs,
+ 					line, severityToStr(severity), function);
++#endif
++	pStart += snprintf(pStart, pEnd - pStart,
++	"%u L%4d  %s  %-20s  ", (unsigned int)millis(), line, severityToStr(severity), function);
+ 
+ 	va_start(args, msg);
+ 	pStart += vsnprintf(pStart, pEnd - pStart, msg, args);
+@@ -172,7 +183,9 @@ int16_t logEntryCreate(const int severity, const char *filename, const char *fun
+ 	// Creating log entry
+ 	if (severity <= levelLog)
+ 	{
++#if 0
+ 		tOld = t;
++#endif
+ #ifdef _WIN32
+ 		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+ 
+@@ -193,12 +206,12 @@ int16_t logEntryCreate(const int severity, const char *filename, const char *fun
+ 		SetConsoleTextAttribute(hConsole, 7);
+ #else
+ 		if (severity == 1)
+-			cerr << red << pBuf << reset << "\r\n" << flush;
++			fprintf(stderr, "%s%s%s\r\n", red, pBuf, reset);
+ 		else
+ 		if (severity == 2)
+-			cerr << yellow << pBuf << reset << "\r\n" << flush;
++			fprintf(stderr, "%s%s%s\r\n", yellow, pBuf, reset);
+ 		else
+-			cout << pBuf << "\r\n" << flush;
++			fprintf(stdout, "%s\r\n", pBuf);
+ #endif
+ 	}
+ 
