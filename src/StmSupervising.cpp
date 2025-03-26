@@ -48,7 +48,6 @@ dProcessStateStr(ProcState);
 using namespace std;
 
 extern UART_HandleTypeDef huart1;
-
 static uint8_t bufSwtRx;
 
 StmSupervising::StmSupervising()
@@ -76,6 +75,8 @@ Success StmSupervising::process()
 		mpDbg = SystemDebugging::create(this);
 		if (!mpDbg)
 			return procErrLog(-1, "could not create process");
+
+		SingleWireTransfering::fctDataSendSet(uartTransmit);
 
 		//mpDbg->procTreeDisplaySet(false);
 		start(mpDbg);
@@ -123,9 +124,14 @@ extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	HAL_UART_Receive_IT(&huart1, &bufSwtRx, sizeof(bufSwtRx));
 }
 
+void StmSupervising::uartTransmit(uint8_t *pBuf, size_t len)
+{
+	HAL_UART_Transmit_IT(&huart1, pBuf, len);
+}
+
 extern "C" void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
 	(void)huart;
-	SingleWireTransfering::bufTxPending = 0;
+	SingleWireTransfering::dataSent();
 }
 

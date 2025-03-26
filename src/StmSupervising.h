@@ -68,6 +68,7 @@ private:
 	SystemDebugging *mpDbg;
 
 	/* static functions */
+	static void uartTransmit(uint8_t *pBuf, size_t len);
 
 	/* static variables */
 
