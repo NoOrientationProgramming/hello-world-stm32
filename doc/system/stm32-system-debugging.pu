@@ -6,6 +6,8 @@ frame "StmSupervising()" as pSup {
   frame "initialize()" as pInit
 
   frame "SystemDebugging()" as pDbg {
+
+    frame "process()" as pProc
     frame "SingleWireTransfering()" as pSwt
   }
   
@@ -13,6 +15,7 @@ frame "StmSupervising()" as pSup {
 }
 
 pInit --> pDbg : Standarized member functions
+pProc <--> pSwt : Member functions
 pSwt <--> pInt : Static functions
 
 footer **STM32** System debugging structure\n(C) DSP-Crowd Electronics GmbH
