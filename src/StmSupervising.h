@@ -65,10 +65,9 @@ private:
 
 	/* member variables */
 	//uint32_t mStartMs;
-	SystemDebugging *mpDbg;
 
 	/* static functions */
-	static void uartTransmit(uint8_t *pBuf, size_t len);
+	static void uartTransmit(char *pBuf, size_t len);
 
 	/* static variables */
 

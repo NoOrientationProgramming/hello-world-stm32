@@ -48,12 +48,13 @@ dProcessStateStr(ProcState);
 using namespace std;
 
 extern UART_HandleTypeDef huart1;
-static uint8_t bufSwtRx;
+static char bufSwtRx;
+
+SystemDebugging *pDbg = NULL;
 
 StmSupervising::StmSupervising()
 	: Processing("StmSupervising")
 	//, mStartMs(0)
-	, mpDbg(NULL)
 {
 	mState = StStart;
 }
@@ -72,14 +73,14 @@ Success StmSupervising::process()
 	{
 	case StStart:
 
-		mpDbg = SystemDebugging::create(this);
-		if (!mpDbg)
+		pDbg = SystemDebugging::create(this);
+		if (!pDbg)
 			return procErrLog(-1, "could not create process");
 
-		SingleWireTransfering::fctDataSendSet(uartTransmit);
+		pDbg->fctDataSendSet(uartTransmit);
 
-		//mpDbg->procTreeDisplaySet(false);
-		start(mpDbg);
+		//pDbg->procTreeDisplaySet(false);
+		start(pDbg);
 
 		HAL_GPIO_TogglePin(LED1_GPIO_PORT, LED1_PIN);
 
@@ -88,14 +89,14 @@ Success StmSupervising::process()
 		break;
 	case StDbgReadyWait:
 
-		if (!mpDbg->ready())
+		if (!pDbg->ready())
 			break;
 
 		HAL_GPIO_TogglePin(LED2_GPIO_PORT, LED2_PIN);
 
 		/* start interrupts */
 
-		HAL_UART_Receive_IT(&huart1, &bufSwtRx, sizeof(bufSwtRx));
+		HAL_UART_Receive_IT(&huart1, (uint8_t *)&bufSwtRx, sizeof(bufSwtRx));
 
 		mState = StMain;
 
@@ -120,18 +121,18 @@ void StmSupervising::processInfo(char *pBuf, char *pBufEnd)
 /* static functions */
 extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	SingleWireTransfering::dataReceived(&bufSwtRx, sizeof(bufSwtRx));
-	HAL_UART_Receive_IT(&huart1, &bufSwtRx, sizeof(bufSwtRx));
+	pDbg->dataReceived(&bufSwtRx, sizeof(bufSwtRx));
+	HAL_UART_Receive_IT(&huart1, (uint8_t *)&bufSwtRx, sizeof(bufSwtRx));
 }
 
-void StmSupervising::uartTransmit(uint8_t *pBuf, size_t len)
+void StmSupervising::uartTransmit(char *pBuf, size_t len)
 {
-	HAL_UART_Transmit_IT(&huart1, pBuf, len);
+	HAL_UART_Transmit_IT(&huart1, (uint8_t *)pBuf, len);
 }
 
 extern "C" void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
 	(void)huart;
-	SingleWireTransfering::dataSent();
+	pDbg->dataSent();
 }
 
