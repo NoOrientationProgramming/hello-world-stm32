@@ -32,7 +32,6 @@
 #define STM_SUPERVISING_H
 
 #include "Processing.h"
-#include "SystemDebugging.h"
 
 class StmSupervising : public Processing
 {

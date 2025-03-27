@@ -31,6 +31,7 @@
 #include "main.h"
 
 #include "StmSupervising.h"
+#include "SystemDebugging.h"
 
 #define dForEach_ProcState(gen) \
 		gen(StStart) \
