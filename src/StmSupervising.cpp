@@ -48,7 +48,8 @@ dProcessStateStr(ProcState);
 
 using namespace std;
 
-extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart2;
+UART_HandleTypeDef *pUartSwt = &huart2;
 static char bufSwtRx;
 
 SystemDebugging *pDbg = NULL;
@@ -78,7 +79,7 @@ Success StmSupervising::process()
 		if (!pDbg)
 			return procErrLog(-1, "could not create process");
 
-		pDbg->fctDataSendSet(uartTransmit);
+		pDbg->fctDataSendSet(uartTransmit, pUartSwt);
 
 		//pDbg->procTreeDisplaySet(false);
 		start(pDbg);
@@ -97,7 +98,7 @@ Success StmSupervising::process()
 
 		/* start interrupts */
 
-		HAL_UART_Receive_IT(&huart1, (uint8_t *)&bufSwtRx, sizeof(bufSwtRx));
+		HAL_UART_Receive_IT(pUartSwt, (uint8_t *)&bufSwtRx, sizeof(bufSwtRx));
 
 		mState = StMain;
 
@@ -123,12 +124,13 @@ void StmSupervising::processInfo(char *pBuf, char *pBufEnd)
 extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	pDbg->dataReceived(&bufSwtRx, sizeof(bufSwtRx));
-	HAL_UART_Receive_IT(&huart1, (uint8_t *)&bufSwtRx, sizeof(bufSwtRx));
+	HAL_UART_Receive_IT(pUartSwt, (uint8_t *)&bufSwtRx, sizeof(bufSwtRx));
 }
 
-void StmSupervising::uartTransmit(char *pBuf, size_t len)
+void StmSupervising::uartTransmit(char *pBuf, size_t len, void *pUser)
 {
-	HAL_UART_Transmit_IT(&huart1, (uint8_t *)pBuf, len);
+	UART_HandleTypeDef *pUart = (UART_HandleTypeDef *)pUser;
+	HAL_UART_Transmit_IT(pUart, (uint8_t *)pBuf, len);
 }
 
 extern "C" void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)

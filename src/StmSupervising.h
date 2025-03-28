@@ -66,7 +66,7 @@ private:
 	//uint32_t mStartMs;
 
 	/* static functions */
-	static void uartTransmit(char *pBuf, size_t len);
+	static void uartTransmit(char *pBuf, size_t len, void *pUser);
 
 	/* static variables */
 
