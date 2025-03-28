@@ -17,6 +17,7 @@
 /out/
 /bin/
 /obj/
+/ext/
 
 # Kompilierte Binaries
 *.elf
