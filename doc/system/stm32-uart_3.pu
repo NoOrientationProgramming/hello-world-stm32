@@ -30,7 +30,7 @@ component PC as pPc {
 
   frame "ST-Link Driver" as pDrv
 
-  frame "Single Wire Transfering\nGateway" as pGw
+  frame "SingleWireTransfering()\nGateway" as pGw
   frame "STMicroelectronics\nSoftware" as pStSw
 
   rectangle "Your Tools" as pTools {
