@@ -1,0 +1,33 @@
+
+@startuml
+
+' skinparam linetype ortho
+
+frame "SingleWireTransfering() on Target" as pSwt {
+
+  database "Start" as StStart
+  database "Flow Control\nreceive" as StFlowControlRcvdWait
+  database "Content ID\nsend" as StContentIdOutSentWait
+  database "Data send" as StDataSentWait
+  database "Content ID\nreceive" as StContentIdInRcvdWait
+  database "Data receive" as StCmdRcvdWait
+
+  StStart --> StFlowControlRcvdWait
+
+  StFlowControlRcvdWait -> StContentIdOutSentWait : "Slave to\nMaster"
+  StFlowControlRcvdWait <- StContentIdOutSentWait : "Nothing\nto send"
+
+  StFlowControlRcvdWait -> StContentIdInRcvdWait : "Master to\nSlave"
+  StFlowControlRcvdWait <- StContentIdInRcvdWait : "Unknown\nContent ID"
+
+  StContentIdOutSentWait --> StDataSentWait
+  StDataSentWait --> StFlowControlRcvdWait : "Sent"
+
+  StContentIdInRcvdWait --> StCmdRcvdWait
+  StCmdRcvdWait --> StFlowControlRcvdWait : "Rcvd"
+}
+
+footer **SingleWireTransfering()** - Thin Server On Microcontroller\n(C) DSP-Crowd Electronics GmbH
+
+@enduml
+
