@@ -1,0 +1,65 @@
+
+@startuml
+
+' skinparam linetype ortho
+
+component "NUCLEO" as pNuc {
+
+  component "STM32" {
+
+    frame "AppProcessing()" as pApp
+
+    frame "SystemDebugging()" as pSysDbg {
+      frame "SingleWireTransfering()" as pSwt
+    }
+
+    component "Programming and\nDebug Hardware Module" as pHwDbg
+
+    pApp <--> pHwDbg
+    pApp <--> pSysDbg
+  }
+
+  component "ST-Link" as pStLink
+
+  pSwt <--> pStLink : USART2
+  pHwDbg <--> pStLink : SWD
+}
+
+component PC as pPc {
+
+  frame "ST-Link Driver" as pDrv
+
+  frame "Single Wire Transfering\nGateway" as pGw
+  frame "STMicroelectronics\nSoftware" as pStSw
+
+  rectangle "Your Tools" as pTools {
+
+    frame "Programmer" as pProg
+    frame "Debugger (GDB)" as pDbg
+
+    frame "Process Tree" as pTree
+    frame "Log" as pLog
+    frame "Command" as pCmd
+    ' frame "Custom\nChannels" as pCustom
+  }
+
+  pDrv <--> pStSw
+  pDrv <--> pGw : "COM1 or\n/dev/ttyACM0"
+
+  pGw --> pTree
+  pGw --> pLog
+  pGw <--> pCmd : "TCP/IP"
+  ' pGw <--> pCustom
+
+  pStSw <-- pProg
+  pStSw <--> pDbg
+
+  pStSw -r[hidden]- pGw
+}
+
+pStLink <--> pDrv : USB
+
+footer **Processing()** - Debugging STM32 Targets\n(C) DSP-Crowd Electronics GmbH
+
+@enduml
+
