@@ -2,6 +2,7 @@
 @startuml
 
 ' skinparam linetype ortho
+scale 0.6
 
 component "NUCLEO" as pNuc {
 
