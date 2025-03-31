@@ -1,6 +1,6 @@
 
 In microcontroller programming, simple log outputs are usually the only feedback available.
-With the [Processing()](https://github.com/NoOrientationProgramming/ProcessingCore) class, you get two additional features: a task viewer and a command interface.
+With [Processing()](https://github.com/NoOrientationProgramming/ProcessingCore), you get two additional features: a task viewer and a command interface.
 The task viewer provides a detailed insight into the entire system, whereas the command interface gives full control over the microcontroller.
 
 ## Status
