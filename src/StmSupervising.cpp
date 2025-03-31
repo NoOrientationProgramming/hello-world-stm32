@@ -96,6 +96,16 @@ Success StmSupervising::process()
 
 		HAL_GPIO_TogglePin(LED2_GPIO_PORT, LED2_PIN);
 
+		cmdReg("led1",
+			cmdLedOneToggle,
+			"", "Toggle LED1",
+			"LEDs");
+
+		cmdReg("led2",
+			cmdLedTwoToggle,
+			"", "Toggle LED2",
+			"LEDs");
+
 		/* start interrupts */
 
 		HAL_UART_Receive_IT(pUartSwt, (uint8_t *)&bufSwtRx, sizeof(bufSwtRx));
@@ -143,5 +153,19 @@ extern "C" void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
 	(void)huart;
 	pDbg->dataSent();
+}
+
+void StmSupervising::cmdLedOneToggle(char *pArgs, char *pBuf, char *pBufEnd)
+{
+	(void)pArgs;
+	HAL_GPIO_TogglePin(LED1_GPIO_PORT, LED1_PIN);
+	dInfo("LED1 toggled: sz = %u", sizeof(Command));
+}
+
+void StmSupervising::cmdLedTwoToggle(char *pArgs, char *pBuf, char *pBufEnd)
+{
+	(void)pArgs;
+	HAL_GPIO_TogglePin(LED2_GPIO_PORT, LED2_PIN);
+	dInfo("LED2 toggled");
 }
 
