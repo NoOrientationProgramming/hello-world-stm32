@@ -1,4 +1,7 @@
 
-*.c linguist-detectable=false
-*.h linguist-detectable=false
+Core/ linguist-vendored
+Drivers/ linguist-vendored
+
+doc/ linguist-vendored
+tools/ linguist-vendored
 
