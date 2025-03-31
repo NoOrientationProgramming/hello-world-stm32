@@ -81,7 +81,7 @@ Success StmSupervising::process()
 
 		pDbg->fctDataSendSet(uartTransmit, pUartSwt);
 
-		//pDbg->procTreeDisplaySet(false);
+		pDbg->procTreeDisplaySet(false);
 		start(pDbg);
 
 		HAL_GPIO_TogglePin(LED1_GPIO_PORT, LED1_PIN);
