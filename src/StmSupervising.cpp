@@ -118,6 +118,12 @@ void StmSupervising::processInfo(char *pBuf, char *pBufEnd)
 #if 1
 	dInfo("State\t\t\t%s\n", ProcStateString[mState]);
 #endif
+	GPIO_PinState nBtnUser;
+
+	nBtnUser = HAL_GPIO_ReadPin(BUTTON_USER_GPIO_PORT,
+						BUTTON_USER_PIN);
+
+	dInfo("User button\t\t%s\n", nBtnUser == GPIO_PIN_RESET ? "On" : "Off");
 }
 
 /* static functions */
