@@ -159,7 +159,7 @@ void StmSupervising::cmdLedOneToggle(char *pArgs, char *pBuf, char *pBufEnd)
 {
 	(void)pArgs;
 	HAL_GPIO_TogglePin(LED1_GPIO_PORT, LED1_PIN);
-	dInfo("LED1 toggled: sz = %u", sizeof(Command));
+	dInfo("LED1 toggled");
 }
 
 void StmSupervising::cmdLedTwoToggle(char *pArgs, char *pBuf, char *pBufEnd)
