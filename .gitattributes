@@ -1,9 +1,13 @@
 
 # ST
-Core/ linguist-vendored
-Drivers/ linguist-vendored
+Core/** linguist-vendored
+Drivers/** linguist-vendored
+Makefile linguist-vendored
+*.ld linguist-vendored
+*.s linguist-vendored
 
 # DSPC
-doc/ linguist-vendored
-tools/ linguist-vendored
+doc/** linguist-vendored
+tools/** linguist-vendored
+*.sh linguist-vendored
 
