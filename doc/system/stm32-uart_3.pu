@@ -8,10 +8,10 @@ component "NUCLEO" as pNuc {
 
   component "STM32" {
 
-    frame "AppProcessing()" as pApp
+    frame "<<AppProcessing()>>" as pApp
 
-    frame "SystemDebugging()" as pSysDbg {
-      frame "SingleWireTransfering()" as pSwt
+    frame "<<SystemDebugging()>>" as pSysDbg {
+      frame "<<SingleWireTransfering()>>" as pSwt
     }
 
     component "Programming and\nDebug Hardware Module" as pHwDbg

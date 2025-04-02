@@ -5,10 +5,10 @@ frame "StmSupervising()" as pSup {
 
   frame "initialize()" as pInit
 
-  frame "SystemDebugging()" as pDbg {
+  frame "<<SystemDebugging()>>" as pDbg {
 
     frame "process()" as pProc
-    frame "SingleWireTransfering()" as pSwt
+    frame "<<SingleWireTransfering()>>" as pSwt
   }
   
   frame "Static interrupt functions" as pInt

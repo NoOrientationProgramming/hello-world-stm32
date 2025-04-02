@@ -20,28 +20,26 @@ component PC as pc {
 component "Converter from\nUART to USB" as cnvt2
 
 component "Target STM32 with UART" as trg {
-  frame "SystemDebugging()" as dbg
-  frame "SingleWireTransfering()" as swt
+  frame "<<SystemDebugging()>>" as dbg {
+    frame "<<SingleWireTransfering()>>" as swt
+  }
   component "Programming and\nDebug Hardware Module" as segInt
-  frame "AppProcessing()" as app
+  frame "<<AppProcessing()>>" as app
 
-  component "ST-Link" as seg
 }
 
+component "ST-Link" as pStLink
+
 dbg <-> app
-dbg <--> swt
 app <--> segInt
 
-gw -[hidden]r- dbgPc
-
-swt -[hidden]r- segInt
-swt <--> cnvt2 : UART
+swt <-> cnvt2 : UART
 
 cnvt2 <--> gw : USB
 
-segInt <-> seg
+segInt <--> pStLink
 
-seg <--> dbgPc : USB
+pStLink <--> dbgPc : USB
 dbgPc <-- src
 
 gw --> log
