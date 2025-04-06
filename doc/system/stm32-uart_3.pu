@@ -4,61 +4,61 @@
 ' skinparam linetype ortho
 ' scale 0.6
 
-component "NUCLEO" as pNuc {
-
-  component "STM32" {
-
-    frame "<<AppProcessing()>>" as pApp
-
-    frame "<<SystemDebugging()>>" as pSysDbg {
-      frame "<<SingleWireTransfering()>>" as pSwt
-    }
-
-    component "Programming and\nDebug Hardware Module" as pHwDbg
-
-    pApp <--> pHwDbg
-    pApp <--> pSysDbg
-  }
-
-  component "ST-Link" as pStLink
-
-  pSwt <--> pStLink : USART2
-  pHwDbg <--> pStLink : SWD
-}
-
 component PC as pPc {
 
-  frame "ST-Link Driver" as pDrv
+	rectangle "Your Tools" as pTools {
 
-  frame "SingleWireTransfering()\nGateway" as pGw
-  frame "STMicroelectronics\nSoftware" as pStSw
+		frame "Programmer" as pProg
+		frame "Debugger (GDB)" as pDbg
 
-  rectangle "Your Tools" as pTools {
+		frame "Process Tree" as pTree
+		frame "Log" as pLog
+		frame "Command" as pCmd
+		' frame "Custom\nChannels" as pCustom
+	}
 
-    frame "Programmer" as pProg
-    frame "Debugger (GDB)" as pDbg
+	frame "SingleWireTransfering()\nGateway" as pGw
+	frame "STMicroelectronics\nSoftware" as pStSw
 
-    frame "Process Tree" as pTree
-    frame "Log" as pLog
-    frame "Command" as pCmd
-    ' frame "Custom\nChannels" as pCustom
-  }
+	frame "ST-Link Driver" as pDrv
 
-  pDrv <--> pStSw
-  pDrv <--> pGw : "COM1 or\n/dev/ttyACM0"
+	pProg --> pStSw
+	pDbg <--> pStSw
 
-  pGw --> pTree
-  pGw --> pLog
-  pGw <--> pCmd : "TCP/IP"
-  ' pGw <--> pCustom
+	pTree <-- pGw
+	pLog <-- pGw
+	pCmd <--> pGw : "TCP/IP"
+	' pCustom <--> pGw
 
-  pStSw <-- pProg
-  pStSw <--> pDbg
+	pStSw <--> pDrv
+	pGw <--> pDrv : "COM1 or\n/dev/ttyACM0"
 
-  pStSw -r[hidden]- pGw
+	pStSw -r[hidden]- pGw
 }
 
-pStLink <--> pDrv : USB
+component "NUCLEO" as pNuc {
+
+	component "STM32" {
+
+		component "Programming and\nDebug Hardware Module" as pHwDbg
+
+		frame "<<SystemDebugging()>>" as pSysDbg {
+			frame "<<SingleWireTransfering()>>" as pSwt
+		}
+
+		frame "<<AppProcessing()>>" as pApp
+
+		pHwDbg <--> pApp
+		pSysDbg <--> pApp
+	}
+
+	component "ST-Link" as pStLink
+
+	pStLink <--> pHwDbg : SWD
+	pStLink <--> pSwt : USART2
+}
+
+pDrv <--> pStLink : USB
 
 footer **Processing()** - Debugging STM32 Targets\n(C) DSP-Crowd Electronics GmbH
 
