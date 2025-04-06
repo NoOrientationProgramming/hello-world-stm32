@@ -14,7 +14,7 @@ This repository contains the code running on the microcontroller. Highlighted in
 
 <p align="center">
   <kbd>
-    <img src="https://raw.githubusercontent.com/NoOrientationProgramming/stm32-hello-world/main/doc/system/stm32-uart_3.svg" style="width: 500px; max-width:100%"/>
+    <img src="https://raw.githubusercontent.com/NoOrientationProgramming/stm32-hello-world/main/doc/system/stm32-uart_3.svg" style="width: 400px; max-width:100%"/>
   </kbd>
 </p>
 
