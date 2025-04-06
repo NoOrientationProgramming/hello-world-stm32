@@ -9,7 +9,7 @@ The task viewer provides a detailed insight into the entire system, whereas the 
 
 - Pre alpha
 
-# Targets
+## Targets
 
 - Tested on: `NUCLEO-C071RB`
 
