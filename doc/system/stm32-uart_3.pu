@@ -42,11 +42,11 @@ component "NUCLEO" as pNuc {
 
 		component "Programming and\nDebug Hardware Module" as pHwDbg
 
-		frame "<<SystemDebugging()>>" as pSysDbg {
-			frame "<<SingleWireTransfering()>>" as pSwt
+		frame "<<SystemDebugging()>>" as pSysDbg #lightgreen {
+			frame "<<SingleWireTransfering()>>" as pSwt #lightgreen
 		}
 
-		frame "<<AppProcessing()>>" as pApp
+		frame "<<AppProcessing()>>" as pApp #lightgreen
 
 		pHwDbg <--> pApp
 		pSysDbg <--> pApp
