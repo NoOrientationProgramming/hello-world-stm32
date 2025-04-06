@@ -10,7 +10,7 @@ The task viewer provides a detailed insight into the entire system, whereas the 
 
 ## Architecture
 
-This repository contains the code running on the microcontroller. Highlighted in green. Check out the [SingleWireTransfering() Gateway](https://github.com/NoOrientationProgramming/gw-dbg-swt/tree/main) as well!
+This repository contains the code running on the microcontroller. Highlighted in green. Check out the [SingleWireTransfering() Gateway](https://github.com/NoOrientationProgramming/hello-world-stm32) as well!
 
 <p align="center">
   <kbd>
