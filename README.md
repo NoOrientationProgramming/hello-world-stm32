@@ -8,6 +8,9 @@ The task viewer provides a detailed insight into the entire system, whereas the 
 ## Status
 
 - Pre alpha
+
+# Targets
+
 - Tested on: `NUCLEO-C071RB`
 
 ## Architecture
