@@ -5,5 +5,5 @@
 d="build"
 p="$(ls -1 $d/*.elf)"
 
-gdb-multiarch --quiet "$p" -x gdb.cfg
+gdb-multiarch --quiet "$p" -x tools/gdb.cfg
 
