@@ -57,6 +57,7 @@ SystemDebugging *pDbg = NULL;
 StmSupervising::StmSupervising()
 	: Processing("StmSupervising")
 	//, mStartMs(0)
+	, mCntCycles(0)
 {
 	mState = StStart;
 }
@@ -71,6 +72,8 @@ Success StmSupervising::process()
 #if 0
 	dStateTrace;
 #endif
+	++mCntCycles;
+
 	switch (mState)
 	{
 	case StStart:
@@ -134,6 +137,7 @@ void StmSupervising::processInfo(char *pBuf, char *pBufEnd)
 						BUTTON_USER_PIN);
 
 	dInfo("User button\t\t%s\n", nBtnUser == GPIO_PIN_RESET ? "On" : "Off");
+	dInfo("Cycles\t\t%lu\n", mCntCycles);
 }
 
 /* static functions */

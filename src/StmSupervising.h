@@ -64,6 +64,7 @@ private:
 
 	/* member variables */
 	//uint32_t mStartMs;
+	uint32_t mCntCycles;
 
 	/* static functions */
 	static void uartTransmit(char *pBuf, size_t len, void *pUser);
