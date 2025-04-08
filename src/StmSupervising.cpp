@@ -143,6 +143,7 @@ void StmSupervising::processInfo(char *pBuf, char *pBufEnd)
 /* static functions */
 extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
+	(void)huart;
 	pDbg->dataReceived(&bufSwtRx, sizeof(bufSwtRx));
 	HAL_UART_Receive_IT(pUartSwt, (uint8_t *)&bufSwtRx, sizeof(bufSwtRx));
 }
