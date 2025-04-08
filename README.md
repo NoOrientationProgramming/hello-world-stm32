@@ -1,8 +1,9 @@
 [![Standard](https://img.shields.io/badge/standard-C%2B%2B11-blue.svg?style=plastic&logo=c%2B%2B)](https://en.wikipedia.org/wiki/C%2B%2B#Standardization)
 ![GitHub](https://img.shields.io/github/license/NoOrientationProgramming/hello-world-stm32?style=plastic&color=blue)
 
-In microcontroller programming, simple log outputs are usually the only feedback available.
-With [Processing()](https://github.com/NoOrientationProgramming/ProcessingCore), you get two additional features: a task viewer and a command interface.
+When working with small targets, simple log outputs are often the only feedback available.
+With [CodeOrb](https://github.com/NoOrientationProgramming/code-orb) and [Processing()](https://github.com/NoOrientationProgramming/ProcessingCore) on the target,
+you get two additional features: a task viewer and a command interface.
 The task viewer provides a detailed insight into the entire system, whereas the command interface gives full control over the microcontroller.
 
 ## Status
