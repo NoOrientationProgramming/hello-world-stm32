@@ -2,7 +2,8 @@
 ![GitHub](https://img.shields.io/github/license/NoOrientationProgramming/hello-world-stm32?style=plastic&color=blue)
 
 When working with small targets, simple log outputs are often the only feedback available.
-With [CodeOrb](https://github.com/NoOrientationProgramming/code-orb) and [Processing()](https://github.com/NoOrientationProgramming/ProcessingCore) on the target,
+With [CodeOrb](https://github.com/NoOrientationProgramming/code-orb) on the PC and
+[Processing()](https://github.com/NoOrientationProgramming/ProcessingCore) on the target,
 you get two additional features: a task viewer and a command interface.
 The task viewer provides a detailed insight into the entire system, whereas the command interface gives full control over the microcontroller.
 
