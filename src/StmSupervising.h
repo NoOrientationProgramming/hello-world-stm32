@@ -62,6 +62,8 @@ private:
 	Success process();
 	void processInfo(char *pBuf, char *pBufEnd);
 
+	void uartErrorsClear();
+
 	/* member variables */
 	//uint32_t mStartMs;
 	uint32_t mCntCycles;

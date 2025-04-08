@@ -111,6 +111,7 @@ Success StmSupervising::process()
 
 		/* start interrupts */
 
+		uartErrorsClear();
 		HAL_UART_Receive_IT(pUartSwt, (uint8_t *)&bufSwtRx, sizeof(bufSwtRx));
 
 		mState = StMain;
@@ -124,6 +125,27 @@ Success StmSupervising::process()
 	}
 
 	return Pending;
+}
+
+/*
+ * This is important!
+ * The UART interface is already activated at the beginning of the boot process.
+ * If multiple bytes have been received before the call to HAL_UART_Receive_IT(),
+ * the overrun flag may be set. In this case, receive interrupts are disabled,
+ * even if HAL_UART_Receive_IT() is called.
+ */
+void StmSupervising::uartErrorsClear()
+{
+	if (__HAL_UART_GET_FLAG(pUartSwt, UART_FLAG_RXNE))
+	{
+		volatile uint8_t dummy = (uint8_t)(pUartSwt->Instance->RDR);
+		(void)dummy;
+	}
+
+	__HAL_UART_CLEAR_PEFLAG(pUartSwt);   // Parity Error
+	__HAL_UART_CLEAR_FEFLAG(pUartSwt);   // Framing Error
+	__HAL_UART_CLEAR_NEFLAG(pUartSwt);   // Noise Error
+	__HAL_UART_CLEAR_OREFLAG(pUartSwt);  // Overrun Error
 }
 
 void StmSupervising::processInfo(char *pBuf, char *pBufEnd)
