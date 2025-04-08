@@ -15,7 +15,7 @@ The task viewer provides a detailed insight into the entire system, whereas the 
 
 ## Architecture
 
-This repository contains the code running on the microcontroller. Highlighted in blue. Check out the [SingleWireTransfering() Gateway](https://github.com/NoOrientationProgramming/gw-dbg-swt) as well!
+This repository contains the code running on the microcontroller. Highlighted in blue. Check out [CodeOrb](https://github.com/NoOrientationProgramming/code-orb) the microcontroller debugger as well!
 
 <p align="center">
   <kbd>
