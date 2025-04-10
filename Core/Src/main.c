@@ -109,7 +109,7 @@ int main(void)
   StmSupervising *pApp =  StmSupervising::create();
   while (1)
   {
-	pApp->treeTick();
+    pApp->treeTick();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
