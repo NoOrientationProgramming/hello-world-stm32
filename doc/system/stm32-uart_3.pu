@@ -43,7 +43,7 @@ component "NUCLEO" as pNuc {
 		component "Programming and\nDebug Hardware Module" as pHwDbg
 
 		frame "<<SystemDebugging()>>" as pSysDbg #lightblue {
-			frame "<<SingleWireTransfering()>>" as pSwt #lightblue
+			' frame "<<SingleWireTransfering()>>" as pSwt #lightblue
 		}
 
 		frame "<<AppProcessing()>>" as pApp #lightblue
@@ -55,7 +55,7 @@ component "NUCLEO" as pNuc {
 	component "ST-Link" as pStLink
 
 	pStLink <--> pHwDbg : SWD
-	pStLink <--> pSwt : USART2
+	pStLink <--> pSysDbg : USART2
 }
 
 pDrv <--> pStLink : USB
