@@ -25,10 +25,10 @@ component PC as pPc {
 	pProg --> pStSw
 	pDbg <--> pStSw
 
-	pTree <-- pGw
-	pLog <-- pGw
-	pCmd <--> pGw : "TCP/IP"
-	' pCustom <--> pGw
+	pTree <-[thickness=2]- pGw
+	pLog <-[thickness=2]- pGw
+	pCmd <-[thickness=2]-> pGw : "TCP/IP"
+	' pCustom <-[thickness=2]-> pGw
 
 	pStSw <--> pDrv
 	pGw <--> pDrv : "COM1 or\n/dev/ttyACM0"
