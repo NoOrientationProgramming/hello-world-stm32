@@ -66,7 +66,7 @@ Success InfoTesting::process()
 
 		cmdReg("disp",
 			cmdDisplay,
-			"di", "Display string in process tree",
+			"di", "Display UTF-8 process tree",
 			"Display");
 
 		buf[0] = 0;
