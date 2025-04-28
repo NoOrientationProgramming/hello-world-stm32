@@ -32,6 +32,7 @@
 
 #include "StmSupervising.h"
 #include "SystemDebugging.h"
+#include "InfoTesting.h"
 
 #define dForEach_ProcState(gen) \
 		gen(StStart) \
@@ -69,6 +70,7 @@ Success StmSupervising::process()
 	//uint32_t curTimeMs = millis();
 	//uint32_t diffMs = curTimeMs - mStartMs;
 	//Success success;
+	Processing *pProc;
 #if 0
 	dStateTrace;
 #endif
@@ -86,6 +88,12 @@ Success StmSupervising::process()
 
 		pDbg->procTreeDisplaySet(false);
 		start(pDbg);
+
+		pProc = InfoTesting::create();
+		if (!pProc)
+			return procErrLog(-1, "could not create process");
+
+		start(pProc);
 
 		HAL_GPIO_TogglePin(LED1_GPIO_PORT, LED1_PIN);
 
