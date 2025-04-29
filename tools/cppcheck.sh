@@ -4,8 +4,8 @@ find \
 	. \
 	-type f \
 	-name "*.cpp" \
-	! -path "./ProcessingCore/stm32-uart/*" \
-	! -path "./ProcessingCore/SystemDebugging.*" \
+	! -path "./SystemCore/stm32-uart/*" \
+	! -path "./SystemCore/SystemDebugging.*" \
 | xargs cppcheck \
 	--language=c++ \
 	--std=c++11 \
