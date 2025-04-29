@@ -1,7 +1,7 @@
-diff --git a/code/DMXSpot/lib/ProcessingCore/Log.cpp b/code/DMXSpot/lib/ProcessingCore/Log.cpp
+diff --git a/code/DMXSpot/lib/SystemCore/Log.cpp b/code/DMXSpot/lib/SystemCore/Log.cpp
 index f7ad87b..441152d 100644
---- a/code/DMXSpot/lib/ProcessingCore/Log.cpp
-+++ b/code/DMXSpot/lib/ProcessingCore/Log.cpp
+--- a/code/DMXSpot/lib/SystemCore/Log.cpp
++++ b/code/DMXSpot/lib/SystemCore/Log.cpp
 @@ -29,8 +29,11 @@
  */
  
