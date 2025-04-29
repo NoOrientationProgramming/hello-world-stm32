@@ -63,10 +63,10 @@ Core/Src/system_stm32c0xx.c
 CPP_SOURCES = \
 src/StmSupervising.cpp \
 src/InfoTesting.cpp \
-ProcessingCore/targets/stm32/SingleWireTransfering.cpp \
-ProcessingCore/targets/stm32/SystemDebugging.cpp \
-ProcessingCore/Processing.cpp \
-ProcessingCore/Log.cpp
+SystemCore/targets/stm32/SingleWireTransfering.cpp \
+SystemCore/targets/stm32/SystemDebugging.cpp \
+SystemCore/Processing.cpp \
+SystemCore/Log.cpp
 
 # ASM sources
 ASM_SOURCES =  \
@@ -135,8 +135,8 @@ C_INCLUDES =  \
 -IDrivers/CMSIS/Include
 
 C_INCLUDES += \
- -IProcessingCore/targets/stm32 \
- -IProcessingCore \
+ -ISystemCore/targets/stm32 \
+ -ISystemCore \
  -Isrc
 
 # compile gcc flags
