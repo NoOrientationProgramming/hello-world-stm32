@@ -106,7 +106,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  StmSupervising *pApp =  StmSupervising::create();
+  StmSupervising *pApp = StmSupervising::create();
   while (1)
   {
     pApp->treeTick();
