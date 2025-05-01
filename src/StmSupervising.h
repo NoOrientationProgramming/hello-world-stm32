@@ -45,11 +45,11 @@ public:
 
 protected:
 
-	StmSupervising();
 	virtual ~StmSupervising() {}
 
 private:
 
+	StmSupervising();
 	StmSupervising(const StmSupervising &) = delete;
 	StmSupervising &operator=(const StmSupervising &) = delete;
 
