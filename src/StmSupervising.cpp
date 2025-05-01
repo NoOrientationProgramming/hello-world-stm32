@@ -74,8 +74,6 @@ Success StmSupervising::process()
 #if 0
 	dStateTrace;
 #endif
-	++mCntCycles;
-
 	switch (mState)
 	{
 	case StStart:
@@ -126,6 +124,8 @@ Success StmSupervising::process()
 
 		break;
 	case StMain:
+
+		++mCntCycles;
 
 		break;
 	default:
