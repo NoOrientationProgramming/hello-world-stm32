@@ -78,6 +78,8 @@ Success StmSupervising::process()
 	{
 	case StStart:
 
+		cntTimeCreateSet(cntTimeCreate);
+
 		pDbg = SystemDebugging::create(this);
 		if (!pDbg)
 			return procErrLog(-1, "could not create process");
@@ -203,5 +205,10 @@ void StmSupervising::cmdLedTwoToggle(char *pArgs, char *pBuf, char *pBufEnd)
 	(void)pArgs;
 	HAL_GPIO_TogglePin(LED2_GPIO_PORT, LED2_PIN);
 	dInfo("LED2 toggled");
+}
+
+uint32_t StmSupervising::cntTimeCreate()
+{
+	return HAL_GetTick();
 }
 

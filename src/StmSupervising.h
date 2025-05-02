@@ -74,6 +74,7 @@ private:
 	static void cmdLedTwoToggle(char *pArgs, char *pBuf, char *pBufEnd);
 
 	/* static variables */
+	static uint32_t cntTimeCreate();
 
 	/* constants */
 
