@@ -72,6 +72,7 @@ private:
 	static void uartTransmit(char *pBuf, size_t len, void *pUser);
 	static void cmdLedOneToggle(char *pArgs, char *pBuf, char *pBufEnd);
 	static void cmdLedTwoToggle(char *pArgs, char *pBuf, char *pBufEnd);
+	static void cmdReset(char *pArgs, char *pBuf, char *pBufEnd);
 
 	/* static variables */
 	static uint32_t cntTimeCreate();

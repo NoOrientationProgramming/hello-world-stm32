@@ -118,6 +118,11 @@ Success StmSupervising::process()
 			"", "Toggle LED2",
 			"LEDs");
 
+		cmdReg("reset",
+			cmdReset,
+			"", "Reset the STM32 microcontroller",
+			"Testing");
+
 		/* start interrupts */
 
 		uartErrorsClear();
@@ -206,6 +211,12 @@ void StmSupervising::cmdLedTwoToggle(char *pArgs, char *pBuf, char *pBufEnd)
 	(void)pArgs;
 	HAL_GPIO_TogglePin(LED2_GPIO_PORT, LED2_PIN);
 	dInfo("LED2 toggled");
+}
+
+void StmSupervising::cmdReset(char *pArgs, char *pBuf, char *pBufEnd)
+{
+	HAL_Delay(3000);
+	NVIC_SystemReset();
 }
 
 uint32_t StmSupervising::cntTimeCreate()
