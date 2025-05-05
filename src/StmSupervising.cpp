@@ -85,6 +85,7 @@ Success StmSupervising::process()
 			return procErrLog(-1, "could not create process");
 
 		pDbg->fctDataSendSet(uartTransmit, pUartSwt);
+		pDbg->logImmediateSendSet(true); // NOT ALLOWED IN HALF DUPLEX MODE (Single Wire)!
 
 		pDbg->procTreeDisplaySet(false);
 		start(pDbg);
