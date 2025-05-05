@@ -119,6 +119,7 @@ void InfoTesting::cmdLogTest(char *pArgs, char *pBuf, char *pBufEnd)
 	wrnLog("Test: Warning");
 	infLog("Test: Info");
 	dbgLog("Test: Debug");
+
 	dInfo("Log testing done");
 }
 
