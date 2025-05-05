@@ -69,6 +69,11 @@ Success InfoTesting::process()
 			"di", "Display UTF-8 in process tree",
 			"Display");
 
+		cmdReg("你好",
+			cmdDisplay,
+			"", "Display message in process tree",
+			"Display");
+
 		buf[0] = 0;
 
 		mState = StMain;
