@@ -62,6 +62,7 @@ private:
 
 	/* static functions */
 	static void cmdDisplay(char *pArgs, char *pBuf, char *pBufEnd);
+	static void cmdLogTest(char *pArgs, char *pBuf, char *pBufEnd);
 
 	/* static variables */
 

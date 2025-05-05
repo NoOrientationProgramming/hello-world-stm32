@@ -67,12 +67,17 @@ Success InfoTesting::process()
 		cmdReg("disp",
 			cmdDisplay,
 			"di", "Display UTF-8 in process tree",
-			"Display");
+			"Testing");
 
 		cmdReg("你好",
 			cmdDisplay,
 			"", "Display message in process tree",
-			"Display");
+			"Testing");
+
+		cmdReg("logTest",
+			cmdLogTest,
+			"", "Test full-/halfduplex logging",
+			"Testing");
 
 		buf[0] = 0;
 
@@ -106,5 +111,14 @@ void InfoTesting::cmdDisplay(char *pArgs, char *pBuf, char *pBufEnd)
 {
 	dInfo("Writing '%s' to buffer", pArgs);
 	snprintf(buf, sizeof(buf), "%s", pArgs);
+}
+
+void InfoTesting::cmdLogTest(char *pArgs, char *pBuf, char *pBufEnd)
+{
+	errLog(-1, "Test: Error");
+	wrnLog("Test: Warning");
+	infLog("Test: Info");
+	dbgLog("Test: Debug");
+	dInfo("Log testing done");
 }
 
