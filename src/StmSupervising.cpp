@@ -49,8 +49,9 @@ dProcessStateStr(ProcState);
 
 using namespace std;
 
-extern UART_HandleTypeDef huart2;
-UART_HandleTypeDef *pUartSwt = &huart2;
+#define dUartSwt	huart2
+extern UART_HandleTypeDef dUartSwt;
+UART_HandleTypeDef *pUartSwt = &dUartSwt;
 static char bufSwtRx;
 
 SystemDebugging *pDbg = NULL;
@@ -59,6 +60,7 @@ StmSupervising::StmSupervising()
 	: Processing("StmSupervising")
 	//, mStartMs(0)
 	, mCntCycles(0)
+	, mFullDuplex(false)
 {
 	mState = StStart;
 }
@@ -85,8 +87,13 @@ Success StmSupervising::process()
 			return procErrLog(-1, "could not create process");
 
 		pDbg->fctDataSendSet(uartTransmit, pUartSwt);
-		pDbg->logImmediateSendSet(true); // NOT ALLOWED IN HALF DUPLEX MODE (Single Wire)!
-
+#if 1
+		if (!(pUartSwt->Instance->CR3 & USART_CR3_HDSEL))
+		{
+			pDbg->logImmediateSendSet(true); // NOT ALLOWED IN HALF DUPLEX MODE (Single Wire)!
+			mFullDuplex = true;
+		}
+#endif
 		pDbg->procTreeDisplaySet(false);
 		start(pDbg);
 
@@ -169,6 +176,8 @@ void StmSupervising::processInfo(char *pBuf, char *pBufEnd)
 #if 1
 	dInfo("State\t\t\t%s\n", ProcStateString[mState]);
 #endif
+	dInfo("Duplex mode\t\t%s\n", mFullDuplex ? "Full" : "Half");
+
 	GPIO_PinState nBtnUser;
 
 	nBtnUser = HAL_GPIO_ReadPin(BUTTON_USER_GPIO_PORT,
