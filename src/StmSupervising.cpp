@@ -61,6 +61,8 @@ StmSupervising::StmSupervising()
 	//, mStartMs(0)
 	, mCntCycles(0)
 	, mFullDuplex(false)
+	, mnBtnUserOld(GPIO_PIN_SET)
+	, mCntDebounce(0)
 {
 	mState = StStart;
 }
@@ -142,6 +144,8 @@ Success StmSupervising::process()
 
 		++mCntCycles;
 
+		buttonUserProcess();
+
 		break;
 	default:
 		break;
@@ -169,6 +173,26 @@ void StmSupervising::uartErrorsClear()
 	__HAL_UART_CLEAR_FEFLAG(pUartSwt);   // Framing Error
 	__HAL_UART_CLEAR_NEFLAG(pUartSwt);   // Noise Error
 	__HAL_UART_CLEAR_OREFLAG(pUartSwt);  // Overrun Error
+}
+
+void StmSupervising::buttonUserProcess()
+{
+	++mCntDebounce;
+	if (mCntDebounce < 1000)
+		return;
+	mCntDebounce = 0;
+
+	GPIO_PinState nBtnUser;
+
+	nBtnUser = HAL_GPIO_ReadPin(BUTTON_USER_GPIO_PORT,
+						BUTTON_USER_PIN);
+
+	if (nBtnUser == mnBtnUserOld)
+		return;
+	mnBtnUserOld = nBtnUser;
+
+	procInfLog("User button changed: %s",
+					nBtnUser == GPIO_PIN_RESET ? "On" : "Off");
 }
 
 void StmSupervising::processInfo(char *pBuf, char *pBufEnd)
