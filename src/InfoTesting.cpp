@@ -29,7 +29,6 @@
 #define dForEach_ProcState(gen) \
 		gen(StStart) \
 		gen(StMain) \
-		gen(StNop) \
 
 #define dGenProcStateEnum(s) s,
 dProcessStateEnum(ProcState);
@@ -41,6 +40,7 @@ dProcessStateStr(ProcState);
 
 using namespace std;
 
+bool logTestReq = false;
 char buf[32];
 
 InfoTesting::InfoTesting()
@@ -86,8 +86,11 @@ Success InfoTesting::process()
 		break;
 	case StMain:
 
-		break;
-	case StNop:
+		if (!logTestReq)
+			break;
+		logTestReq = false;
+
+		procInfLog("Test: Info process");
 
 		break;
 	default:
@@ -119,6 +122,8 @@ void InfoTesting::cmdLogTest(char *pArgs, char *pBuf, char *pBufEnd)
 	wrnLog("Test: Warning");
 	infLog("Test: Info");
 	dbgLog("Test: Debug");
+
+	logTestReq = true;
 
 	dInfo("Log testing done");
 }
