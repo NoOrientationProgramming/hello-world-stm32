@@ -71,7 +71,7 @@ Success InfoTesting::process()
 
 		cmdReg("你好",
 			cmdDisplay,
-			"", "Display message in process tree",
+			"", "Display UTF-8 in process tree",
 			"Testing");
 
 		cmdReg("logTest",
