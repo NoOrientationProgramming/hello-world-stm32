@@ -59,6 +59,7 @@ private:
 
 	/* member variables */
 	//uint32_t mStartMs;
+	uint32_t mItems;
 
 	/* static functions */
 	static void cmdDisplay(char *pArgs, char *pBuf, char *pBufEnd);

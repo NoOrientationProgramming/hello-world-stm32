@@ -40,12 +40,15 @@ dProcessStateStr(ProcState);
 
 using namespace std;
 
+const uint32_t cItemsMax = 400000;
+
 bool logTestReq = false;
 char buf[32];
 
 InfoTesting::InfoTesting()
 	: Processing("InfoTesting")
 	//, mStartMs(0)
+	, mItems(0)
 {
 	mState = StStart;
 }
@@ -86,6 +89,10 @@ Success InfoTesting::process()
 		break;
 	case StMain:
 
+		mItems += 1;
+		if (mItems > cItemsMax)
+			mItems = 0;
+
 		if (!logTestReq)
 			break;
 		logTestReq = false;
@@ -106,6 +113,9 @@ void InfoTesting::processInfo(char *pBuf, char *pBufEnd)
 	dInfo("State\t\t%s\n", ProcStateString[mState]);
 #endif
 	dInfo("Display\t\t'%s'\n", buf);
+	dInfo("Items processed\n");
+	pBuf += progressStr(pBuf, pBufEnd, mItems, cItemsMax);
+	dInfo("\n");
 }
 
 /* static functions */
