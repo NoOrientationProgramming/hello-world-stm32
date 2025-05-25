@@ -31,12 +31,7 @@ This repository contains the code running on the microcontroller. Highlighted in
 
 Clone repo with
 ```
-git clone https://github.com/NoOrientationProgramming/hello-world-stm32.git
-```
-
-Initialize submodules with
-```
-git submodule update --init --recursive
+git clone https://github.com/NoOrientationProgramming/hello-world-stm32.git --recursive
 ```
 
 Create output files
