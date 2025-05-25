@@ -197,6 +197,7 @@ void StmSupervising::buttonUserProcess()
 
 void StmSupervising::processInfo(char *pBuf, char *pBufEnd)
 {
+	dInfo("Hello World STM32!\n");
 #if 1
 	dInfo("State\t\t\t%s\n", ProcStateString[mState]);
 #endif
