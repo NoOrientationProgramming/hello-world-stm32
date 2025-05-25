@@ -34,7 +34,12 @@ Clone repo with
 git clone https://github.com/NoOrientationProgramming/hello-world-stm32.git --recursive
 ```
 
-Create output files
+Enter directory
+```
+cd hello-world-stm32/
+```
+
+Build project
 ```
 make
 ```
@@ -43,3 +48,4 @@ Flash to device
 ```
 st-flash --format=ihex --reset write ./build/hello-world-stm32.hex
 ```
+
