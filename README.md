@@ -9,12 +9,6 @@ With [CodeOrb](https://github.com/NoOrientationProgramming/code-orb#codeorb-star
 you get two additional features: a task viewer and a command interface.
 The task viewer provides a detailed insight into the entire system, whereas the command interface gives full control over the microcontroller.
 
-## Status
-
-- Pre alpha
-
-## Targets
-
 - Tested on: `NUCLEO-C071RB`
 
 ## Architecture
